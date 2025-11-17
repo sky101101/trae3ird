@@ -26,10 +26,14 @@ class MainTabBarController: UITabBarController {
         tabBar.backgroundImage = UIImage()
         
 
-        let topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0, width: tabBar.frame.width, height: 0.5)
-        topBorder.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-        tabBar.layer.addSublayer(topBorder)
+        // 使用UIView添加顶部边框，避免CALayer循环引用问题
+        let topBorderView = UIView()
+        topBorderView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+        tabBar.addSubview(topBorderView)
+        topBorderView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
     }
     
     private func setupViewControllers() {
@@ -69,6 +73,7 @@ class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "gearshape.fill")
         )
         
+        // 设置视图控制器
         viewControllers = [homeNav, cardPackNav, recordsNav, settingsNav]
     }
 }

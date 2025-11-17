@@ -123,7 +123,8 @@ class HomeViewController: UIViewController, NFCNDEFReaderSessionDelegate, NFCTag
         }
         
         contentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.greaterThanOrEqualToSuperview()
             make.width.equalToSuperview()
         }
         
